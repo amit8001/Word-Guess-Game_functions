@@ -9,7 +9,8 @@
  //define an empty array to store the guesses
  var answerArray = [];
  
- //startUp function defined. This is called on page load/user has completed all 12 attempts/correctly guessed the word(then restart)
+ //startUp function defined. This is called/invoked on page load/user has completed all 12 attempts to guess 
+ //OR has correctly guessed the word
  //here we fill the answer array with underscores first based on the length of the random word selected
  function start(){
    console.log("Inside startup");
@@ -19,7 +20,7 @@
    letterGuess = [];
    answerArray = [];
    //First define an array of words to choose from, the computer will randonly choose from these words
-   var randomWordArr = ["food","pizza","happy","joy","omlette","rice","tacos","pasta","burrito"];
+   var randomWordArr = ["food","pizza","happy","joy","omlette","rice","tacos","pasta","burrito","sandwich","meal","healthy","smoothie","yogurt"];
    
    //we then choose a random word from the array above, using the globally declared variable "randomWord"
    randomWord = randomWordArr[Math.floor(Math.random() * randomWordArr.length)];
@@ -37,7 +38,7 @@
    //JUST for TESTING PURPOSES
    console.log(randomWord);
    
-   //Below lines 55-58 pupulate the values of win, guessed letters, remaining clicks to the page
+   //Below 3 lines populate the values of win, guessed letters, remaining clicks to the page
    document.getElementById("wins").innerHTML = "Wins: "+win;
    document.getElementById("guess_alrdy").innerHTML = "Letters Already Guessed: " +letterGuess;
    document.getElementById("clk_rmg").innerHTML = clicks_rmg;
@@ -47,7 +48,7 @@
  document.onkeyup = function(event) {
    // Determines which key was pressed.
    var userGuess = event.key;
-   console.log( letterGuess.indexOf(userGuess));
+  // console.log( letterGuess.indexOf(userGuess));
   
    //below for loop checks whether the user typed letter is in any position within the selected/chosen random word 
      for (i = 0; i < randomWord.length; i++){
@@ -62,7 +63,7 @@
      //keeps of a count of the attempts for guessing the word
      count++; 
     
-   //This block of if statement till line#83 PREVENTS the same letter when typed/pressed to decrement the remaining clicks counter 
+   //This block of if statement PREVENTS the same letter when typed/pressed to decrement the remaining clicks counter 
    //& also prevents being populated in the Guessed Letters array
    //this is per requirement as shown in example video
     if (letterGuess.indexOf(userGuess) == -1 ){
@@ -74,7 +75,7 @@
     document.getElementById("guess_alrdy").innerHTML = "Letters Already Guessed: " +letterGuess;
     document.getElementById("clk_rmg").innerHTML = clicks_rmg;
 
-   //below if statement till line#91 checks if the "formed" answer is equal to the randomWord for that iteration, 
+   //below if statement checks if the "formed" answer is equal to the randomWord for that iteration, 
    //if so then call the Start function to restart the game and also increment the win global variable by 1. 
    //Display the updated win value when a new game restarts
    if (randomWord === answerArray.join("")){
