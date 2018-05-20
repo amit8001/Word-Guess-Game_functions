@@ -5,6 +5,7 @@
  var clicks_rmg ;
  var randomWord ; //declared globally
  var win=0;
+ var losses =0;
  
  //define an empty array to store the guesses
  var answerArray = [];
@@ -38,8 +39,9 @@
    //JUST for TESTING PURPOSES
    console.log(randomWord);
    
-   //Below 3 lines populate the values of win, guessed letters, remaining clicks to the page
+   //Below 4 lines populate the values of win, guessed letters, remaining clicks to the page
    document.getElementById("wins").innerHTML = "Wins: "+win;
+   document.getElementById("loss").innerHTML = "Losses: "+losses;
    document.getElementById("guess_alrdy").innerHTML = "Letters Already Guessed: " +letterGuess;
    document.getElementById("clk_rmg").innerHTML = clicks_rmg;
  }
@@ -76,8 +78,9 @@
     document.getElementById("clk_rmg").innerHTML = clicks_rmg;
 
    //below if statement checks if the "formed" answer is equal to the randomWord for that iteration, 
-   //if so then call the Start function to restart the game and also increment the win global variable by 1. 
+   //if so then call the Start function to restart the game and also increment the win counter by 1. 
    //Display the updated win value when a new game restarts
+   //Invoking a "Bell" sound effect to indicate that the user has won!
    if (randomWord === answerArray.join("")){
        start();
        win++;
@@ -85,10 +88,14 @@
        document.getElementById('myAudio').play();
       } 
    
-   //if users attempts unique key/letter values 12 times and still cannot complete the word, then the game restarts 
-   //by invoking the start function.
+   //if user attempts unique key/letter values 12 times and still cannot complete the word, the loss counter goes up by 1 
+   // and the game restarts by invoking the start function.
+   //Invoking a "Sad" sound effect to indicate that the user has lost!
    if (clicks_rmg ===0) {
      start();
+     losses++;
+     document.getElementById("loss").innerHTML = "Losses: "+losses;
+     document.getElementById('myAudioLoss').play();
    }
      
  }
